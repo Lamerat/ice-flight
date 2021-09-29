@@ -1,3 +1,4 @@
+import { Rocket } from './Rocket.js';
 import { Shoot } from './Shoot.js';
 
 export class Fighter {
@@ -8,10 +9,16 @@ export class Fighter {
   static #moveSpeed = 2;
   static #canvasWidth;
   static #planeEndPoint = 36;
+  static #maxRockets = 2;
+  static #maxAmmo = 125;
+  static #maxRocketPayload = 6;
+  #rocketsPayload = Fighter.#maxRocketPayload;
+  #ammo = Fighter.#maxAmmo;
   #context;
   #xPos;
   #yPos;
   #shoots = [];
+  #rockets = [];
 
   /**
    * 
@@ -31,12 +38,46 @@ export class Fighter {
     return this.#shoots;
   }
 
+  get rockets() {
+    return this.#rockets;
+  }
+
   set shoots(value) {
     if (Array.isArray(value) && value.every(x => x instanceof Shoot)) {
       this.#shoots = value;
     } else {
       throw new Error ('Invalid value!');
     }
+  }
+  
+  set rockets(value) {
+    if (Array.isArray(value) && value.every(x => x instanceof Rocket)) {
+      this.#rockets = value;
+    } else {
+      throw new Error ('Invalid value!');
+    }
+  }
+
+  checkPoints = () => {
+    let x = this.#xPos;
+    let y = this.#yPos;
+
+    const points = [
+      [x, y],
+      [x, y - 100],
+      [x - 5, y - 74],
+      [x - 16, y - 54],
+      [x - 34, y - 35],
+      [x - 34, y - 21],
+      [x - 22, y - 9],
+      [x + 22, y - 9],
+      [x + 34, y - 21],
+      [x + 34, y - 35],
+      [x + 16, y - 54],
+      [x + 5, y - 74],
+    ];
+
+    return points;
   }
 
   moveLeft() {
@@ -52,10 +93,23 @@ export class Fighter {
   }
 
   cannonShoot() {
-    this.#shoots.push(new Shoot(this.#context, this.#xPos, this.#yPos - 100));
+    if (this.#ammo) {
+      this.#shoots.push(new Shoot(this.#context, this.#xPos, this.#yPos - 100));
+      this.#ammo = this.#ammo - 1;
+      document.getElementById('ammoCount').innerHTML = `AMMO: ${this.#ammo}`;
+    }
+  }
+
+  rocketShoot() {
+    if (this.#rockets.length < Fighter.#maxRockets && this.#rocketsPayload) {
+      this.#rockets.push(new Rocket(this.#context, this.#xPos, this.#yPos - 20));
+      this.#rocketsPayload = this.#rocketsPayload - 1;
+      document.getElementById('rocketCount').innerHTML = `ROCKETS: ${this.#rocketsPayload}`;
+    }
   }
   
   draw() {
+    this.checkPoints();
     const ctx = this.#context;
     let x = this.#xPos;
     let y = this.#yPos;

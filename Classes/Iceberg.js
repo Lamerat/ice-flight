@@ -11,6 +11,22 @@ export class Iceberg extends GameObject {
       right: this.xPos + 50,
     }
   }
+
+  /**
+   * 
+   * @returns Array
+   */
+  collisionShape() {
+    const x = this.xPos;
+    const y = this.yPos;
+    
+    const shape = [
+      [x, y - 90],
+      [x + 55, y - 12],
+      [x - 55, y - 12],
+    ];
+    return shape;
+  }
   
   draw() {
     const ctx = this.ctx;

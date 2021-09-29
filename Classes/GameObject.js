@@ -29,6 +29,13 @@ export class GameObject {
     return this.#id;
   }
 
+  set yPos(value) {
+    if (isNaN(value)) {
+      throw new Error ('Invalid value, must be number');
+    }
+    this.#yPos = value;
+  }
+
   draw() {}
 
   update() {
