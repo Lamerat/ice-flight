@@ -34,6 +34,11 @@ export class Fighter {
     Fighter.#canvasWidth = canvasWidth;
   }
 
+
+  get xPos() {
+    return this.#xPos;
+  }
+
   get shoots() {
     return this.#shoots;
   }

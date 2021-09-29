@@ -1,5 +1,6 @@
 export class GameObject {
   static #counter = 0;
+  #canvasWidth;
   #id = 0;
   #ctx;
   #xPos;
@@ -11,6 +12,7 @@ export class GameObject {
     this.#yPos = yPosition;
     GameObject.#counter = GameObject.#counter + 1;
     this.#id = GameObject.#counter;
+    this.#canvasWidth = context.canvas.width;
   }
 
   get ctx() {
@@ -29,11 +31,22 @@ export class GameObject {
     return this.#id;
   }
 
+  get canvasWidth() {
+    return this.#canvasWidth;
+  }
+
   set yPos(value) {
     if (isNaN(value)) {
       throw new Error ('Invalid value, must be number');
     }
     this.#yPos = value;
+  }
+
+  set xPos(value) {
+    if (isNaN(value)) {
+      throw new Error ('Invalid value, must be number');
+    }
+    this.#xPos = value;
   }
 
   draw() {}

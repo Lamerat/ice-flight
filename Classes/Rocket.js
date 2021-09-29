@@ -2,6 +2,7 @@ import { GameObject } from './GameObject.js';
 
 export class Rocket extends GameObject {
   static #rocketSpeed = 5;
+  static #lineWidth = 0.5;
 
   update() {
     this.yPos = this.yPos - Rocket.#rocketSpeed;
@@ -13,7 +14,7 @@ export class Rocket extends GameObject {
     const y = this.yPos;
 
     ctx.beginPath();
-    ctx.lineWidth = 0.5;
+    ctx.lineWidth = Rocket.#lineWidth;
     ctx.strokeStyle = 'black';
     ctx.fillStyle = 'white';
     ctx.moveTo(x - 2, y);
