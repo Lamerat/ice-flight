@@ -9,7 +9,7 @@ import { Supplies } from './Supplies.js';
 export class Game {
   static #singleton = false;
   static #maxGameSpeed = 5;
-  static #gameSpeed = 1;
+  static #gameSpeed = 2;
   static #width;
   static #height;
   static #fighter;
@@ -17,14 +17,14 @@ export class Game {
   static #crash;
   static #cannonDamage = 1;
   static #rocketDamage = 10;
+  static #explosionDuration = 1000;
   #icebergs = [];
   #ships = [];
   #helicopters = [];
   #explosions = [];
   #supplies = [];
   #context;
-
-  temp;
+  interval;
 
   constructor (context) {
     if (Game.#singleton) {
@@ -37,14 +37,42 @@ export class Game {
     
     Game.#fighter = new Fighter(this.#context, Game.#width / 2, Game.#height - 5, Game.#width);
 
-    this.#supplies.push(new Supplies(this.#context, 200, 100));
-    this.#ships.push(new Ship(this.#context, 500, 190));
-    this.#ships.push(new Ship(this.#context, 300, -20));
-    this.#icebergs.push(new Iceberg(this.#context, 300, 300));
-    this.#icebergs.push(new Iceberg(this.#context, 100, 120));
-    this.#icebergs.push(new Iceberg(this.#context, 500, 120));
-    this.#helicopters.push(new Helicopter(this.#context, 300, 100));
-    this.#helicopters.push(new Helicopter(this.#context, 100, 400));
+    // this.#supplies.push(new Supplies(this.#context, 200, 100));
+    // this.#ships.push(new Ship(this.#context, 500, 190));
+    // this.#ships.push(new Ship(this.#context, 300, -20));
+    // this.#icebergs.push(new Iceberg(this.#context, 300, 300));
+    // this.#icebergs.push(new Iceberg(this.#context, 100, 120));
+    // this.#icebergs.push(new Iceberg(this.#context, 500, 120));
+    // this.#helicopters.push(new Helicopter(this.#context, 300, 100));
+    // this.#helicopters.push(new Helicopter(this.#context, 100, 400));
+  }
+
+  addIceberg(value) {
+    if (value instanceof Iceberg) {
+      this.#icebergs.push(value);
+    }
+  }
+
+  addShip(value) {
+    if (value instanceof Ship) {
+      this.#ships.push(value);
+    }
+  }
+
+  addHelicopter(value) {
+    if (value instanceof Helicopter) {
+      this.#helicopters.push(value);
+    }
+  }
+
+  addSupplies(value) {
+    if (value instanceof Supplies) {
+      this.#supplies.push(value);
+    }
+  }
+
+  get gameSpeed() {
+    return Game.#gameSpeed;
   }
 
   actions(action) {
@@ -113,7 +141,7 @@ export class Game {
 
     this.#helicopters.forEach(helicopter => {
       helicopter.update(Game.#gameSpeed);
-      if (helicopter.yPos >= Game.#height + Ship.shipHigh) {
+      if (helicopter.yPos >= Game.#height + Helicopter.helicopterHigh) {
         this.#helicopters = this.#helicopters.filter(x => x.id !== helicopter.id);
       }
 
@@ -278,12 +306,12 @@ export class Game {
   playerCrash() {
     this.makeExplosion(Game.#fighter.xPos, Game.#height - 50);
     Game.#crash = true;
-    setTimeout(() => clearInterval(this.temp), 1000);
+    setTimeout(() => clearInterval(this.interval), 500);
   }
 
   makeExplosion(x, y) {
     this.#explosions.push(new Explosion(this.#context, x, y));
-    setTimeout(() => this.#explosions.shift(), 1000);
+    setTimeout(() => this.#explosions.shift(), Game.#explosionDuration);
   }
 
   /**

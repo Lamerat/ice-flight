@@ -5,8 +5,8 @@ export class Helicopter extends  GameObject {
   static #HelicopterColor = 'black';
   static #helicopterEndPoint = 58;
   static helicopterHigh = 30;
-  static #moveChance = 6;
-  static #moveNumber = 4;
+  static #moveChance = 4;
+  static #moveNumber = 2;
   static #moveSpeed =  4;
   static #helicopterHealth = 5;
   #propeller = {left: 0, right: 0, top: 0, bottom: 0};

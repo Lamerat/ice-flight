@@ -1,9 +1,12 @@
 import { Game } from './Classes/Game.js';
+import { RandomGame } from './Classes/RandomGame.js';
 import { gameActions } from './common/game-actions.js';
 
 const canvas = document.getElementById('gameCanvas');
 const context = canvas.getContext('2d');
 const game = new Game(context);
+const randomGame = new RandomGame(game, context);
+
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') {
@@ -41,4 +44,7 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
-game.temp = setInterval(() => game.frame(), 1000.0/60.0);
+
+setInterval (() => randomGame.generator(), 1800);
+
+game.interval = setInterval(() => game.frame(), 1000.0/60.0);

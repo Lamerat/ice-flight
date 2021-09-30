@@ -13,7 +13,7 @@ export class Fighter {
   static #maxAmmo = 125;
   static #maxRocketPayload = 6;
   static #maxFuel = 1000;
-  static #fuelConsumption = 0.3;
+  static #fuelConsumption = 0.2;
   #rocketsPayload = Fighter.#maxRocketPayload;
   #ammo = Fighter.#maxAmmo;
   #fuel = Fighter.#maxFuel;

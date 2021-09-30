@@ -6,8 +6,8 @@ export class  Ship extends  GameObject {
   static #flagColor = 'yellow';
   static #shipEndPoint = 90;
   static shipHigh = 71;
-  static #moveChance = 6;
-  static #moveNumber = 4;
+  static #moveChance = 4;
+  static #moveNumber = 2;
   static #moveSpeed =  2;
   static #shipHealth = 20;
   #position = directions.LEFT;
@@ -72,14 +72,14 @@ export class  Ship extends  GameObject {
     super.update(speed);
     if (this.#move && this.#position === directions.LEFT) {
       this.xPos = this.xPos + Ship.#moveSpeed;
-      if (this.xPos === this.canvasWidth + Ship.#shipEndPoint) {
+      if (this.xPos >= this.canvasWidth + Ship.#shipEndPoint) {
         this.xPos = -Ship.#shipEndPoint;
       }
     }
 
     if (this.#move && this.#position === directions.RIGHT) {
       this.xPos = this.xPos - Ship.#moveSpeed;
-      if (this.xPos === -Ship.#shipEndPoint) {
+      if (this.xPos <= -Ship.#shipEndPoint) {
         this.xPos = this.canvasWidth + Ship.#shipEndPoint;
       }
     }
