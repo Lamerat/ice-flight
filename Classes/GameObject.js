@@ -5,11 +5,13 @@ export class GameObject {
   #ctx;
   #xPos;
   #yPos;
+  #health;
 
-  constructor(context, xPosition, yPosition) {
+  constructor(context, xPosition, yPosition, health) {
     this.#ctx = context;
     this.#xPos = xPosition;
     this.#yPos = yPosition;
+    this.#health = health;
     GameObject.#counter = GameObject.#counter + 1;
     this.#id = GameObject.#counter;
     this.#canvasWidth = context.canvas.width;
@@ -31,6 +33,10 @@ export class GameObject {
     return this.#id;
   }
 
+  get health() {
+    return this.#health;
+  }
+
   get canvasWidth() {
     return this.#canvasWidth;
   }
@@ -49,9 +55,16 @@ export class GameObject {
     this.#xPos = value;
   }
 
+  set health(value) {
+    if (isNaN(value)) {
+      throw new Error ('Invalid value, must be number');
+    }
+    this.#health = value;
+  }
+
   draw() {}
 
-  update() {
-    this.#yPos = this.#yPos + 1;
+  update(speed) {
+    this.#yPos = this.#yPos + speed;
   }
 }

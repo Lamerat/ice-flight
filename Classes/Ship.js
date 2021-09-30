@@ -9,11 +9,12 @@ export class  Ship extends  GameObject {
   static #moveChance = 6;
   static #moveNumber = 4;
   static #moveSpeed =  2;
+  static #shipHealth = 20;
   #position = directions.LEFT;
   #move = false;
 
   constructor(context, xPosition, yPosition) {
-    super(context, xPosition, yPosition);
+    super(context, xPosition, yPosition, Ship.#shipHealth);
     this.#position = Math.floor(Math.random() * 2) + 1;
     if (Math.floor(Math.random() * Ship.#moveChance) + 1 === Ship.#moveNumber) {
       this.#move = true;
@@ -66,8 +67,8 @@ export class  Ship extends  GameObject {
     }
   }
 
-  update() {
-    super.update();
+  update(speed) {
+    super.update(speed);
     if (this.#move && this.#position === directions.LEFT) {
       this.xPos = this.xPos + Ship.#moveSpeed;
       if (this.xPos === this.canvasWidth + Ship.#shipEndPoint) {
@@ -84,7 +85,6 @@ export class  Ship extends  GameObject {
   }
 
   draw() {
-    this.collisionShape()
     if (this.#position === directions.RIGHT) {
       this.drawRight();
     } else {

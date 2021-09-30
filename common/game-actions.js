@@ -5,4 +5,6 @@ export const gameActions = {
   RIGHT_STOP: 4,
   CANNON_SHOOT: 5,
   ROCKET_SHOOT: 6,
+  SPEED_UP: 7,
+  SPEED_DOWN: 8,
 }

@@ -12,13 +12,17 @@ export class Fighter {
   static #maxRockets = 2;
   static #maxAmmo = 125;
   static #maxRocketPayload = 6;
+  static #maxFuel = 1000;
+  static #fuelConsumption = 0.3;
   #rocketsPayload = Fighter.#maxRocketPayload;
   #ammo = Fighter.#maxAmmo;
+  #fuel = Fighter.#maxFuel;
   #context;
   #xPos;
   #yPos;
   #shoots = [];
   #rockets = [];
+  #rocketCounter = 0;
 
   /**
    * 
@@ -73,10 +77,12 @@ export class Fighter {
       [x - 5, y - 74],
       [x - 16, y - 54],
       [x - 34, y - 35],
+      [x - 34, y - 30],
       [x - 34, y - 21],
       [x - 22, y - 9],
       [x + 22, y - 9],
       [x + 34, y - 21],
+      [x + 34, y - 30],
       [x + 34, y - 35],
       [x + 16, y - 54],
       [x + 5, y - 74],
@@ -110,6 +116,35 @@ export class Fighter {
       this.#rockets.push(new Rocket(this.#context, this.#xPos, this.#yPos - 20));
       this.#rocketsPayload = this.#rocketsPayload - 1;
       document.getElementById('rocketCount').innerHTML = `ROCKETS: ${this.#rocketsPayload}`;
+    }
+  }
+
+  updateFuel(speed) {
+    this.#fuel = this.#fuel - Fighter.#fuelConsumption * speed;
+    if (this.#fuel >= 0) {
+      document.getElementById('fuelCount').innerHTML = `FUEL: ${this.#fuel.toFixed()}`;
+    } else {
+      document.getElementById('fuelCount').innerHTML = `FUEL: 0`;
+    }
+    return this.#fuel;
+  }
+
+  updateSupplies(speed) {
+    if (this.#fuel  + 10 * speed < Fighter.#maxFuel) {
+      this.#fuel = this.#fuel + 10 * speed;
+    }
+
+    if (this.#ammo < Fighter.#maxAmmo) {
+      this.#ammo = this.#ammo + 1;
+      document.getElementById('ammoCount').innerHTML = `AMMO: ${this.#ammo}`;
+    }
+
+    this.#rocketCounter = this.#rocketCounter + 0.1;
+    if (Number.isInteger(Number(this.#rocketCounter.toFixed(1)))) {
+      if(this.#rocketsPayload + 1 <= Fighter.#maxRocketPayload) {
+        this.#rocketsPayload = this.#rocketsPayload + 1
+        document.getElementById('rocketCount').innerHTML = `ROCKETS: ${this.#rocketsPayload}`;
+      }
     }
   }
   

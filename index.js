@@ -33,6 +33,14 @@ document.addEventListener('keyup', (e) => {
   if (e.key === 'Shift') {
     game.actions(gameActions.ROCKET_SHOOT);
   }
+
+  if (e.key === 'ArrowUp') {
+    game.actions(gameActions.SPEED_UP);
+  }
+
+  if (e.key === 'ArrowDown') {
+    game.actions(gameActions.SPEED_DOWN);
+  }
 });
 
 
