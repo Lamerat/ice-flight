@@ -19,7 +19,8 @@ export class Helicopter extends  GameObject {
     super(context, xPosition, yPosition, Helicopter.#helicopterHealth);
     this.#position = Math.floor(Math.random() * 2) + 1;
     if (Math.floor(Math.random() * Helicopter.#moveChance) + 1 === Helicopter.#moveNumber) {
-      setTimeout(() => this.#move = true, 1000);
+      const seconds = Math.floor(Math.random() * 3) + 1;
+      setTimeout(() => this.#move = true, seconds * 1000);
     }
   }
 

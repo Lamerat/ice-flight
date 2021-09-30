@@ -17,7 +17,8 @@ export class  Ship extends  GameObject {
     super(context, xPosition, yPosition, Ship.#shipHealth);
     this.#position = Math.floor(Math.random() * 2) + 1;
     if (Math.floor(Math.random() * Ship.#moveChance) + 1 === Ship.#moveNumber) {
-      this.#move = true;
+      const seconds = Math.floor(Math.random() * 3) + 1;
+      setTimeout(() => this.#move = true, seconds * 1000);
     }
   }
 

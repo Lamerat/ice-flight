@@ -1,8 +1,6 @@
 import { Game } from './Classes/Game.js';
 import { gameActions } from './common/game-actions.js';
 
-
-
 const canvas = document.getElementById('gameCanvas');
 const context = canvas.getContext('2d');
 const game = new Game(context);
@@ -43,12 +41,4 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
-
-document.addEventListener('click', (e) => {
-  if (e.target.id === 'stopButton') {
-    clearInterval(az);
-  }
-})
-
-// game.frame();
 game.temp = setInterval(() => game.frame(), 1000.0/60.0);
