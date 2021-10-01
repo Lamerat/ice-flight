@@ -34,17 +34,7 @@ export class Game {
     Game.#height = this.#context.canvas.height;
     Game.#width = this.#context.canvas.width;
     Game.#singleton = true;
-    
     Game.#fighter = new Fighter(this.#context, Game.#width / 2, Game.#height - 5, Game.#width);
-
-    // this.#supplies.push(new Supplies(this.#context, 200, 100));
-    // this.#ships.push(new Ship(this.#context, 500, 190));
-    // this.#ships.push(new Ship(this.#context, 300, -20));
-    // this.#icebergs.push(new Iceberg(this.#context, 300, 300));
-    // this.#icebergs.push(new Iceberg(this.#context, 100, 120));
-    // this.#icebergs.push(new Iceberg(this.#context, 500, 120));
-    // this.#helicopters.push(new Helicopter(this.#context, 300, 100));
-    // this.#helicopters.push(new Helicopter(this.#context, 100, 400));
   }
 
   addIceberg(value) {
