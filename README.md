@@ -1,6 +1,6 @@
 # ICE FLIGHT
 ## Description
-Game is similar to old Atari game __"River raid"__
+Game is similar to old ATARI game __"River raid"__\
 I didn't create levels, I just created the objects in the game (icebergs, ships and helicopters), mainly in order to recall and practice OOP programming.
 
 ### Rules
@@ -16,3 +16,6 @@ Destroy everything what you see, with ONE exception - Supplies. To take supplies
 
 ### Demo
 https://lamerat.github.io/ice-flight/
+
+### Screenshot
+![screen](./screenshoot.png)
